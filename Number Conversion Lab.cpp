@@ -1,21 +1,91 @@
 // Number Conversion Lab.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include "pch.h"
 #include <iostream>
+#include <string>
+using namespace std;
+
+void decToAny(int, int);
+int anytoDecimal(string, int);
 
 int main()
 {
-    std::cout << "Hello World!\n"; 
+	int choice, base;
+	string number;
+	cout << "Enter 1 for converting to binary number,\n"
+		"Enter 2 for converting to decimal number,\n"
+		"Enter 3 for converting to hexadecimal number: ";
+	cin >> choice;
+	cout << "\nEnter number: ";
+	cin >> number;
+	cout << "Enter original base: ";
+	cin >> base;
+	switch (choice)
+	{
+	case 1:
+		decToAny(anytoDecimal(number, base), 2);
+		break;
+
+	case 2:
+		cout << "Decimal number is: " << anytoDecimal(number, base) << endl;
+		break;
+
+	case 3:
+		decToAny(anytoDecimal(number, base), 16);
+		break;
+
+	default:
+		cout << "Invalid number!" << endl;
+		break;
+	}
+	return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+int anytoDecimal(string s, int base)
+{
+	const char *c = s.c_str();
+	int b = 1, dec_val = 0;
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+	// Extracting characters as digits from last character 
+	for (int i = s.length() - 1; i >= 0; i--)
+	{
+		// if character lies in '0'-'9', converting  
+		// it to integral 0-9 by subtracting 48 from 
+		// ASCII value. 
+		if (c[i] >= '0' && c[i] <= '9')
+		{
+			dec_val += (c[i] - 48)*b;
+			// incrementing base by power 
+			b = b * base;
+		}
+		// if character lies in 'A'-'F' , converting  
+		// it to integral 10 - 15 by subtracting 55  
+		// from ASCII value 
+		else if (c[i] >= 'A' && c[i] <= 'F')
+		{
+			dec_val += (c[i] - 55)*b;
+			// incrementing base by power 
+			b *= base;
+		}
+	}
+	return dec_val;
+}
+
+
+void decToAny(int decimal, int base)
+{
+	int i = 0, arr[100];
+	while (decimal > 0)
+	{
+		arr[i] = decimal % base;
+		decimal /= base;
+		i++;
+	}
+
+	cout << "Converted number is: ";
+	for (int j = i - 1; j >= 0; j--)
+	{
+		cout << arr[j];
+	}
+	cout << endl;
+}
