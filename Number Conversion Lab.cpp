@@ -12,32 +12,45 @@ int main()
 {
 	int choice, base;
 	string number;
-	cout << "Enter 1 for converting to binary number,\n"
-		"Enter 2 for converting to decimal number,\n"
-		"Enter 3 for converting to hexadecimal number: ";
-	cin >> choice;
-	cout << "\nEnter number: ";
-	cin >> number;
-	cout << "Enter original base: ";
-	cin >> base;
-	switch (choice)
-	{
-	case 1:
-		decToAny(anytoDecimal(number, base), 2);
-		break;
+	char again;
 
-	case 2:
-		cout << "Decimal number is: " << anytoDecimal(number, base) << endl;
-		break;
+	do {
+		cout << "Enter 1 for converting to binary number,\n"
+				"Enter 2 for converting to decimal number,\n"
+				"Enter 3 for converting to hexadecimal number: ";
+		cin >> choice;
 
-	case 3:
-		decToAny(anytoDecimal(number, base), 16);
-		break;
+		cout << "\nEnter number: ";
+		cin >> number;
+		cout << "Enter original base: ";
+		cin >> base;
 
-	default:
-		cout << "Invalid number!" << endl;
-		break;
-	}
+		switch (choice)
+		{
+		case 1:
+			decToAny(anytoDecimal(number, base), 2);
+			break;
+
+		case 2:
+			cout << "Decimal number is: " << anytoDecimal(number, base) << endl;
+			break;
+
+		case 3:
+			decToAny(anytoDecimal(number, base), 16);
+			break;
+
+		default:
+			cout << "Invalid number!" << endl;
+			break;
+		}
+
+		cout << "\nDo you still need to convert numbers?\n" 
+				"Enter y for Yes or n for No: ";
+		cin >> again;
+		cout << endl;
+
+	} while (again == 'y' || again == 'Y');
+
 	return 0;
 }
 
