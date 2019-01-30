@@ -87,12 +87,21 @@ int anytoDecimal(string s, int base)
 
 void decToAny(int decimal, int base)
 {
-	int i = 0, arr[100];
+	int i = 0, temp = 0;
+	char arr[100];
 	while (decimal > 0)
 	{
-		arr[i] = decimal % base;
+		temp = decimal % base;
+
+		if (temp < 10) {
+			arr[i] = temp + 48;
+			i++;
+		}
+		else {
+			arr[i] = temp + 55;
+			i++;
+		}
 		decimal /= base;
-		i++;
 	}
 
 	cout << "Converted number is: ";
